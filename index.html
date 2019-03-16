@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>GIPHY Fun!!</title>
+
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Added a link to our external stylesheet-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Astronomy Search</h1>
+
+        <form id="astronomy-form">
+            <label for="astronomy-input">Add an Astronomy Topic: </label>
+            <input type="text" id="astronomy-input">
+
+            <!-- Button triggers new astronomy topic to be added -->
+            <input id="addAstronomy" type="submit" value="Add">
+        </form>
+    </div>
+
+    <hr>
+    <!-- Astronomy buttons will get dumped here -->
+    <div id="buttons-view"></div>
+            
+    <hr>
+    <!-- Astronomy Images will get dumped here -->
+    <div id="astronomy-images"></div>
+            
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+  </body>
+</html>
