@@ -73,7 +73,7 @@ $( document.body ).on( "click", ".astronomy", function() {
     } else {
         // Time to handle sending image request to GIPHY!!  The string to define the GIPHY
         // image type to request is found at, this.data-name.
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $( this ).val() + "&api_key=7sdlLYdHyinhtF0LPAA54zylXDgF15Jf&limit=" + nImagesPerTopic;
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $( this ).val() + "&api_key=7sdlLYdHyinhtF0LPAA54zylXDgF15Jf&limit=";
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -90,38 +90,44 @@ $( document.body ).on( "click", ".astronomy", function() {
             console.log( results );
 
             // Now pass through the results and create images as we go.
+            var iSuitableImages = 0;
             for ( var i = 0; i < results.length; i++ ) {
+
                 // Have we done enough?
-                if ( i >= nImagesPerTopic ) {
+                if ( iSuitableImages >= nImagesPerTopic ) {
                     return;
                 }
 
-                // Create an instance of basically our gif class that holds the info we need.
-                var imgEntry = $( "<img>" );
-                imgEntry.addClass( "gif" );
-                imgEntry.attr( "src", results[ i ].images.original_still.url );
-                imgEntry.attr( "data-state", "still" );
-                imgEntry.attr( "data-still", results[ i ].images.original_still.url );
-                imgEntry.attr( "data-animate", results[ i ].images.original_mp4.mp4 );
+                // Let's just add in "G" rated images..
+                if ( results[ i ].rating ===  'g' ) {
+                    iSuitableImages++;
 
-                $( "#astronomy-images" ).append( imgEntry );
+                    // Create an instance of basically our gif class that holds the info we need.
+                    var imgEntry = $( "<img>" );
+                    imgEntry.addClass( "image-control" );
+                    imgEntry.attr( "src", results[ i ].images.original_still.url );
+                    imgEntry.attr( "data-state", "still" );
+                    imgEntry.attr( "data-still", results[ i ].images.original_still.url );
+                    imgEntry.attr( "data-animate", results[ i ].images.original_mp4.mp4 );
+
+                    $( "#astronomy-images" ).append( imgEntry );
+                }
             }
         });
     }
 });
 
-$( ".gif" ).on( "click", function() {
-    // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-    var state = $( this ).attr( "data-state" );
-
+$( "#astronomy-images" ).on( "click", ".image-control", function() {
     // If the clicked image's state is still, update its src attribute to what its data-animate value is.
     // Then, set the image's data-state to animate
     // Else set src to the data-still value
+    var state = $( this ).attr( "data-state" );
     if ( state === "still" ) {
-      $( this ).attr( "src", $(this).attr( "data-animate" ));
+      $( this ).attr( "src", $( this ).attr( "data-animate" ));
       $( this ).attr( "data-state", "animate" );
     } else {
       $( this ).attr( "src", $( this ).attr( "data-still" ));
       $( this ).attr( "data-state", "still" );
     }
 });
+
