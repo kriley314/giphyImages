@@ -108,7 +108,7 @@ $( document.body ).on( "click", ".astronomy", function() {
                     imgEntry.attr( "src", results[ i ].images.original_still.url );
                     imgEntry.attr( "data-state", "still" );
                     imgEntry.attr( "data-still", results[ i ].images.original_still.url );
-                    imgEntry.attr( "data-animate", results[ i ].images.original_mp4.mp4 );
+                    imgEntry.attr( "data-animate", results[ i ].images.original.url );
 
                     $( "#astronomy-images" ).append( imgEntry );
                 }
